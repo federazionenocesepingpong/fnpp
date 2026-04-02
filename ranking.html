@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<style>
-body {
-  font-family: Times New Roman;
-  background-color: #446ac9;
-}
-
-table {
-  background-color: white;
-  border-collapse: collapse;
-  width: 60%;
-}
-
-th, td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-}
-
-th {
-  background-color: #ddd;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranking FNPP - Federazione Nocese Ping Pong</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h1>Ranking FNPP</h1>
+  <header class="page-header">
+    <div class="container">
+      <h1>Ranking FNPP</h1>
+      <a href="index.html" class="back-link">⬅ Torna alla Home</a>
+    </div>
+  </header>
 
-<a href="index.html">⬅ Torna al menu</a>
-
-<table>
+  <main class="page-content">
+    <div class="table-container">
+      <table id="rankingTable">
+  <thead>
   <tr>
     <th>Pos</th>
     <th>Giocatore</th>
-    <th>Punti</th>
-    <th>di cui ATP</th>
+    <th title="Clicca per riordinare" style="cursor: pointer; user-select: none;" onclick="sortTable(2, this)">Punti <span class="sort-icon" style="font-size: 0.8em; margin-left: 5px;"></span></th>
+    <th title="Clicca per riordinare" style="cursor: pointer; user-select: none;" onclick="sortTable(3, this)">di cui ATP <span class="sort-icon" style="font-size: 0.8em; margin-left: 5px;"></span></th>
   </tr>
+  </thead>
+  <tbody id="rankingBody">
   <tr>
     <td>1</td>
     <td>Paolo P.</td>
@@ -350,7 +339,79 @@ th {
     <td>57,8</td>
     <td>0</td>
   </tr>
-</table>
+      </tbody>
+      </table>
+    </div>
+
+    <script>
+      let isAscending = false;
+      let lastColIndex = -1;
+
+      function sortTable(colIndex, thElement) {
+        const tableBody = document.getElementById("rankingBody");
+        const rows = Array.from(tableBody.querySelectorAll("tr"));
+        
+        if (lastColIndex !== colIndex) {
+          isAscending = false;
+        } else {
+          isAscending = !isAscending;
+        }
+        lastColIndex = colIndex;
+
+        document.querySelectorAll(".sort-icon").forEach(span => span.innerText = "");
+        thElement.querySelector(".sort-icon").innerText = isAscending ? "▲" : "▼";
+
+        rows.sort((a, b) => {
+          let cellA = a.getElementsByTagName("td")[colIndex].innerText.trim();
+          let cellB = b.getElementsByTagName("td")[colIndex].innerText.trim();
+
+          // Converte le virgole in punti per il parsing decimale di JS
+          let valA = parseFloat(cellA.replace(',', '.')) || 0;
+          let valB = parseFloat(cellB.replace(',', '.')) || 0;
+
+          if (isAscending) {
+            return valA - valB;
+          } else {
+            return valB - valA; // Decrescente
+          }
+        });
+
+        rows.forEach(row => tableBody.appendChild(row));
+      }
+    </script>
+
+    <section class="info-section">
+      <h3>Calcolo del Punteggio (Regolamento)</h3>
+      <p>Tutti i giocatori iniziano con <strong>100 punti</strong> alla loro prima partecipazione. Il sistema di ranking FNPP si basa su due formati complementari: il <strong>Sistema ELO</strong> (ad aggiornamento costante) e i <strong>Punti ATP</strong> (relativi ai posizionamenti nei tornei).</p>
+
+      <h4>1. Sistema ELO</h4>
+      <p>I punti di sistema ELO si aggiornano dopo ogni singola partita giocata, seguendo questa formula:</p>
+      <div style="background: rgba(0,0,0,0.05); padding: 10px; border-radius: 5px; font-family: monospace; text-align: center; margin: 15px 0;">Nuovo Punteggio = Punteggio Precedente + 6 &times; (Risultato Partita - Probabilità Attesa)</div>
+      <ul>
+        <li><strong>Risultato della Partita:</strong> vale 1 in caso di vittoria, e 0 in caso di sconfitta.</li>
+        <li><strong>Probabilità Attesa:</strong> 1 / { 1 + 10 <sup>[(Punteggio Avversario - Proprio Punteggio) / 400]</sup> }</li>
+      </ul>
+      <p>In questo modo, se un giocatore batte un avversario con punteggio uguale (o quasi uguale), otterrà 3 punti e l'avversario ne perderà 3. Battere un giocatore con ranking inferiore porterà a un guadagno minore di 3 punti; battere invece un avversario più forte premierà l'impresa con più di 3 punti.</p>
+
+      <h4 style="margin-top: 25px;">2. Punti ATP</h4>
+      <p>I punti ottenuti nel sistema ATP si aggiornano in calce ad ogni FNPP Cup. Il giocatore deve cercare di migliorarsi (o difendere le proprie quote punti) nel torneo successivo. <em>Nota bene: non esistono punti ATP palio per le competizioni collaterali quali FNPP Finals e Challenge Cup.</em></p>
+      <ul>
+        <li><strong>1 punto</strong> per ogni set vinto (valido anche per le vittorie a tavolino).</li>
+        <li><strong>8 punti</strong> per il 1° posto nel girone iniziale (<strong>7 punti</strong> per il 2°, <strong>6 punti</strong> per il 3°, <strong>5 punti</strong> per il 4°/5°/6°).</li>
+        <li><strong>3 punti</strong> per il 7°/8° posto nel girone iniziale (valido solo se il torneo in questione presenta gli Ottavi di Finale).</li>
+        <li><strong>5 punti</strong> extra per aver vinto il proprio girone (<em>regola applicabile al vecchio formato a gironi multipli</em>).</li>
+        <li><strong>3 punti</strong> per la vittoria all'interno di un turno di ripescaggio.</li>
+        <li><strong>3 punti</strong> per la vittoria ai match degli Ottavi di Finale.</li>
+        <li><strong>8 punti</strong> bonus per la medaglia di Bronzo.</li>
+        <li><strong>12 punti</strong> bonus per la medaglia d'Argento.</li>
+        <li><strong>18 punti</strong> bonus per la vittoria finale della medaglia d'Oro.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Federazione Nocese Ping Pong. Tutti i diritti riservati.</p>
+  </footer>
 
 </body>
 </html>

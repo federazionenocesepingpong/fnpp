@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;700;800&display=swap');
+
+:root {
+  --color-primary: #ffffff;
+  --color-secondary: #446ac9;
+  --color-accent: #c91212;
+  --color-text: #2c3e50;
+  --color-bg-light: #f8f9fa;
+  
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-secondary);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header & Hero Section */
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+  background: linear-gradient(to bottom, rgba(68, 106, 201, 0.05), var(--color-primary));
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+.hero p.lead {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+}
+
+.highlight {
+  color: var(--color-accent);
+}
+
+/* Nav Cards Section */
+.navigation-section {
+  padding: 40px 20px 100px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 30px;
+  background-color: var(--color-primary);
+  border: 1px solid rgba(68, 106, 201, 0.15);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(68, 106, 201, 0.15);
+  border-color: var(--color-secondary);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.card p {
+  color: #666;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.card:hover h2 {
+  color: var(--color-accent);
+}
+
+.icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .icon {
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+  color: #999;
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  margin: 30px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-primary);
+  text-align: center;
+}
+
+th, td {
+  padding: 12px 8px;
+  border-bottom: 1px solid rgba(68, 106, 201, 0.1);
+}
+
+th {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background-color: rgba(68, 106, 201, 0.03);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-secondary);
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+.page-header {
+  padding: 60px 20px 40px;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(68, 106, 201, 0.05), var(--color-primary));
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.page-content {
+  padding: 20px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.info-section {
+  background-color: var(--color-bg-light);
+  border-left: 4px solid var(--color-accent);
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+/* Lists */
+.tournament-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tournament-list li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: var(--color-primary);
+  border: 1px solid rgba(68, 106, 201, 0.15);
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.tournament-list li a:hover {
+  transform: translateX(10px);
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  box-shadow: 0 8px 20px rgba(68, 106, 201, 0.2);
+}
+
+.tournament-list li a::after {
+  content: '➔';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.25s ease;
+}
+
+.tournament-list li a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Match Results */
+.matches-container {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.match-item {
+  background-color: var(--color-primary);
+  border-left: 4px solid var(--color-secondary);
+  padding: 14px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  font-size: 1.05rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.match-item span.score {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0 10px;
+  padding: 2px 8px;
+  background-color: rgba(201, 18, 18, 0.05);
+  border-radius: 4px;
+}
+
+.match-item span.sets {
+  color: #666;
+  font-size: 0.95rem;
+}
